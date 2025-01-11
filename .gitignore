@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+*.pkl
+
+# Node.js
+node_modules/
+.env
+
+# FAISS 인덱스
+car_faiss_index.idx
+car_embeddings.pkl
+car_metadata.pkl
+
+# JSON 크롤링 결과 파일
+*.json
