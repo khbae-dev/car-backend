@@ -8,7 +8,7 @@ import os
 
 # 📂 최신 JSON 파일 탐색 함수
 def find_latest_json(directory='/shared-data'):
-    json_files = glob.glob(os.path.join(directory, '*.json'))
+    json_files = glob.glob(os.path.join('./../car-scraper', '*.json'))
     if not json_files:
         raise FileNotFoundError("❌ JSON 파일을 찾을 수 없습니다.")
     latest_file = max(json_files, key=os.path.getctime)
@@ -46,12 +46,20 @@ def create_faiss_index(model_name='sentence-transformers/all-MiniLM-L6-v2'):
     index = faiss.IndexFlatL2(d)
     index.add(np.array(car_embeddings))
 
-    # 파일 저장
-    with open('car_embeddings.pkl', 'wb') as f:
+    # 저장 경로를 프로젝트 내부 경로로 설정
+    save_dir = './shared-data'
+
+    # 디렉토리 존재 여부 확인 및 생성
+    if not os.path.exists(save_dir):
+        os.makedirs(save_dir)
+        print(f"📂 디렉토리 생성: {save_dir}")
+
+    # FAISS 인덱스 저장
+    faiss.write_index(index, os.path.join(save_dir, 'car_faiss_index.idx'))
+    with open(os.path.join(save_dir, 'car_embeddings.pkl'), 'wb') as f:
         pickle.dump(car_embeddings, f)
-    with open('car_metadata.pkl', 'wb') as f:
+    with open(os.path.join(save_dir, 'car_metadata.pkl'), 'wb') as f:
         pickle.dump(car_metadata, f)
-    faiss.write_index(index, 'car_faiss_index.idx')
 
     print(f"✅ FAISS 인덱스 생성 완료: {index.ntotal} 개의 차량 벡터가 추가되었습니다.")
 
