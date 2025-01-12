@@ -10,7 +10,7 @@ COPY . .
 RUN apt-get update && apt-get install -y cron
 
 # 스케줄러 파일 복사
-COPY cronjob /etc/cron.d/data-preprocessing-cron
+COPY cronJob /etc/cron.d/data-preprocessing-cron
 
 # cron 권한 설정
 RUN chmod 0644 /etc/cron.d/data-preprocessing-cron
