@@ -1,0 +1,9 @@
+version: "3"
+services:
+  backend:
+    build: .
+    container_name: car-backend-container
+    ports:
+      - "8089:8089"
+    volumes:
+      - .:/app
