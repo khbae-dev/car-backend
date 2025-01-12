@@ -1,0 +1,1 @@
+0 7 * * * root python /app/data_preprocessing.py >> /var/log/data_preprocessing.log 2>&1
