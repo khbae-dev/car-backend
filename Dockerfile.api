@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir -r requirements-api.txt
 EXPOSE 8089
 
 # shared-data 디렉토리 복사
-COPY shared-data /app/shared-data
+#COPY shared-data /app/shared-data
 
 # Copy wait-for-it.sh
 #COPY wait-for-it.sh /wait-for-it.sh
