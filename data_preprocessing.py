@@ -15,12 +15,14 @@ def find_latest_json(directory='/shared-data'):
     print(f"✅ 최신 JSON 파일: {latest_file}")
     return latest_file
 
-# 데이터 전처리 및 인덱스 생성 함수
-def create_faiss_index():
+# 데이터 전처리 및 FAISS 인덱스 생성
+def create_faiss_index(model_name='sentence-transformers/all-MiniLM-L6-v2'):
     # 최신 JSON 파일 로드
-    latest_json = find_latest_json()
-    with open(latest_json, 'r', encoding='utf-8') as f:
-        car_data = json.load(f)
+    data_path = find_latest_json()
+
+    with open(data_path, 'r', encoding='utf-8') as f:
+        cars_data = json.load(f)
+
     # 모델 로드
     try:
         model = SentenceTransformer(model_name)
